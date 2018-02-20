@@ -13,6 +13,25 @@ struct Person {
     // template <>
     // auto meta::registerMembers<Person>();
 
+    // we like to specify the compiler generated functions
+    Person() = default;
+    ~Person() = default;
+
+    // copy not needed for this project
+    Person(const Person& ) = delete ;
+    Person& operator=(const Person& ) = delete ;
+
+    // JSON uses move construction semantics
+    Person(Person&& ) = default ;
+    Person& operator=(Person&& ) = delete ;
+
+    // constructor to set data
+    explicit Person( int iage, float isalary, const std::string& iname)
+       : age(iage)
+       , salary(isalary)
+       , name(iname) {}
+
+    // setter/getter pairs
     void setAge(int a)
     {
         //std::cout << "Age is set by calling setter!\n";
@@ -40,25 +59,9 @@ struct Person {
         return name;
     }
 
-    int age;
-    std::string name;
-    float salary;
+    // data
+    int age { 25 };
+    std::string name { "Alex" };
+    float salary { 35.0f };
     std::unordered_map<std::string, std::vector<MovieInfo>> favouriteMovies;
 };
-
-#include <Meta.h>
-
-namespace meta {
-
-template <>
-inline auto registerMembers<Person>()
-{
-    return members(
-        member("age", &Person::getAge, &Person::setAge), // access through getter/setter only!
-        member("name", &Person::getName, &Person::setName), // same, but ref getter/setter
-        member("salary", &Person::salary),
-        member("favouriteMovies", &Person::favouriteMovies)
-    );
-}
-
-} // end of namespace meta

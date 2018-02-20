@@ -1,14 +1,14 @@
-#include <iostream>
 
-#include <json.hpp>
+// example class
+#include "PersonMeta.h"
+
+#include <json.hpp> // supplied header lib
 #include "JsonCast.h"
 
-#include "Person.h"
+#include <iostream>
 
 class Unregistered
 { };
-
-#include <Meta.h>
 
 void printSeparator()
 {
@@ -18,9 +18,11 @@ void printSeparator()
 extern int main( int, char*[] )
 {
     Person person;
-    person.age = 25;
-    person.salary = 3.50f;
-    person.name = "Alex"; // I'm a person!
+
+    // set some data
+    person.age = 35;
+    person.salary = 4.50f;
+    person.name = "Fred"; // I'm a person!
 
     person.favouriteMovies["Nostalgia Critic"] = { MovieInfo{ "The Room", 8.5f } };
     person.favouriteMovies["John Tron"] = { MovieInfo{ "Goosebumps", 10.0f },
