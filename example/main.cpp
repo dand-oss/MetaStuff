@@ -15,7 +15,7 @@ void printSeparator()
     std::cout << "========================\n";
 }
 
-int main()
+extern int main( int, char*[] )
 {
     Person person;
     person.age = 25;
